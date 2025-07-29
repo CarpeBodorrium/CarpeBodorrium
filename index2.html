@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Carpe Bodorrium</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: Georgia, serif;
+    }
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 40px;
+    }
+    .hero {
+      background-color: black;
+      color: white;
+    }
+    .historia {
+      background-color: #fffaf0;
+      color: #3c3c3c;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    .historia .columna {
+      width: 45%;
+      min-width: 300px;
+      margin: 10px;
+    }
+    .formulario {
+      background-color: #e9f5ff;
+    }
+    .fotos {
+      background-color: #f3f3f3;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <h1>CARPE BODORRIUM</h1>
+    <p>Antía & Marcos · 11 de octubre de 2026</p>
+    <p><em>Aquí comienza nuestra historia...</em></p>
+  </section>
+
+  <section class="historia">
+    <div class="columna">
+      <h2>Nuestra historia</h2>
+      <p>Aquí pondremos un texto bonito sobre cómo nos conocimos, aventuras, viajes y momentos especiales.</p>
+    </div>
+    <div class="columna">
+      <h2>Detalles de la boda</h2>
+      <p>🗓️ 11 de octubre de 2026<br>
+         📍 Lugar: [Nombre del lugar]<br>
+         👗 Dress code: informal con estilo<br>
+         🕒 Hora: [pendiente]</p>
+    </div>
+  </section>
+
+ <section class="formulario">
+  <h2>Confirma tu asistencia</h2>
+  <form id="rsvp-form">
+    <input type="text" name="nombre" placeholder="Tu nombre" required><br>
+    <input type="number" name="numero" placeholder="¿Cuántas personas sois?" required><br>
+    <input type="text" name="intolerancias" placeholder="¿Alguna intolerancia?"><br>
+    <input type="text" name="hotel" placeholder="¿Vas a reservar hotel?"><br>
+    <input type="text" name="bus" placeholder="¿Quieres desplazarte en bus?"><br>
+    <input type="email" name="email" placeholder="Tu correo electrónico" required><br>
+    <input type="tel" name="telefono" placeholder="Tu teléfono de contacto"><br>
+    <button type="submit">Enviar confirmación</button>
+  </form>
+  <p id="confirmacion"></p>
+</section>
+
+<script>
+  document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const data = {
+      nombre: this.nombre.value,
+      numero: this.numero.value,
+      intolerancias: this.intolerancias.value,
+      hotel: this.hotel.value,
+      bus: this.bus.value,
+      email: this.email.value,
+      telefono: this.telefono.value
+    };
+
+    fetch('https://script.google.com/macros/s/AKfycbw06UXzhC1wCcNBe1sMgs6z7Ea1O820U8TIGI39XKn-sl23_jDzznxNNa5p6mVXbE8/exec', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    })
+    .then(res => res.text())
+    .then(msg => {
+      document.getElementById('confirmacion').textContent = '¡Gracias por confirmar!';
+      this.reset();
+    })
+    .catch(err => {
+      document.getElementById('confirmacion').textContent = 'Error al enviar. Intenta de nuevo.';
+    });
+  });
+</script>
+
+
+ <section class="fotos">
+  <h2>Subida de fotos</h2>
+  <div id="bloqueo-fotos">
+    <p><strong>Limpia la cámara, que tendrás que subir tus fotos después de la boda 📸</strong></p>
+  </div>
+  <div id="boton-fotos" style="display: none;">
+    <p>Gracias por acompañarnos. Ahora puedes subir tus fotos aquí:</p>
+<a href="https://drive.google.com/drive/folders/13cyG1P63SIoihOfC0yMAwGdHQ8_t20Mb?usp=sharing" target="_blank" class="btn">Subir mis fotos</a>
+  </div>
+</section>
+
+<script>
+  const hoy = new Date();
+  const fechaBoda = new Date('2026-10-11T00:00:00');
+
+  if (hoy >= fechaBoda) {
+    document.getElementById('bloqueo-fotos').style.display = 'none';
+    document.getElementById('boton-fotos').style.display = 'block';
+  }
+</script>
+
+
+</body>
+</html>
