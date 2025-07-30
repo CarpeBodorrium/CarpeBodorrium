@@ -93,20 +93,29 @@
       telefono: this.telefono.value
     };
 
-    fetch('https://script.google.com/macros/s/AKfycbw06UXzhC1wCcNBe1sMgs6z7Ea1O820U8TIGI39XKn-sl23_jDzznxNNa5p6mVXbE8/exec', {
-      method: 'POST',
-      body: JSON.stringify(data)
-    })
-    .then(res => res.text())
-    .then(msg => {
-      document.getElementById('confirmacion').textContent = '¡Gracias por confirmar!';
-      this.reset();
-    })
-    .catch(err => {
-      document.getElementById('confirmacion').textContent = 'Error al enviar. Intenta de nuevo.';
-    });
-  });
+const formData = new FormData();
+formData.append('nombre', data.nombre);
+formData.append('numero', data.numero);
+formData.append('intolerancias', data.intolerancias);
+formData.append('hotel', data.hotel);
+formData.append('bus', data.bus);
+formData.append('email', data.email);
+formData.append('telefono', data.telefono);
+
+fetch('https://script.google.com/macros/s/AKfycbw06UXzhC1wCcNBe1sMgs6z7Ea1O820U8TIGI39XKn-sl23_jDzznxNNa5p6mVXbE8/exec', {
+  method: 'POST',
+  body: formData
+})
+.then(res => res.text())
+.then(msg => {
+  document.getElementById('confirmacion').textContent = '¡Gracias por confirmar!';
+  document.getElementById('rsvp-form').reset();
+})
+.catch(err => {
+  document.getElementById('confirmacion').textContent = 'Error al enviar. Intenta de nuevo.';
+});
 </script>
+
 
 
  <section class="fotos">
