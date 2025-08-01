@@ -93,19 +93,14 @@
       telefono: this.telefono.value
     };
 
-const formData = new FormData();
-formData.append('nombre', data.nombre);
-formData.append('numero', data.numero);
-formData.append('intolerancias', data.intolerancias);
-formData.append('hotel', data.hotel);
-formData.append('bus', data.bus);
-formData.append('email', data.email);
-formData.append('telefono', data.telefono);
-
-    fetch('https://script.google.com/macros/s/AKfycbxAD-llAEuReqnTgFWePpPTRGb0xPi_aCrmCGbjed_n4TCmJFvbzIrFTEC_sM5CEy3m/exec', {
+fetch('https://script.google.com/macros/s/AKfycbw06UXzhC1wCcNBe1sMgs6z7Ea1O820U8TIGI39XKn-sl23_jDzznxNNa5p6mVXbE8/exec', {
   method: 'POST',
-  body: formData
-})
+  body: JSON.stringify(data),
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
+
 
 
 .then(res => res.text())
